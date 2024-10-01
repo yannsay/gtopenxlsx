@@ -30,3 +30,5 @@ RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10)
 Config/Needs/website: rmarkdown
+URL: https://github.com/yannsay/gtopenxlsx
+BugReports: https://github.com/yannsay/gtopenxlsx/issues
