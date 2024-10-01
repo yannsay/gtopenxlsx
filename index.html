@@ -79,6 +79,7 @@
 </h1></div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>The goal of gtopenxlsx is to export gt tables to xlsx format.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -155,24 +156,21 @@
 <span><span class="va">tab</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/gt_to_xlsx.html">gt_to_xlsx</a></span><span class="op">(</span><span class="va">wb</span>, <span class="st">"gt_cars_example"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/saveWorkbook.html" class="external-link">saveWorkbook</a></span><span class="op">(</span><span class="va">wb</span>, <span class="st">"gt_cars_example.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="inst/excel%20snapshot.png"></p>
 </div>
 <div class="section level2">
 <h2 id="very-beta-version">Very beta version<a class="anchor" aria-label="anchor" href="#very-beta-version"></a>
 </h2>
 <p>Please put in issues reproducible example of tables failing so that I can try as much as possible.</p>
-<p>If you want to use <code>gtopenxlsx</code> as a base for your own rendering, you can follow this article that looks into <code>gt_to_xlxs.</code></p>
+<p>If you want to use <code>gtopenxlsx</code> as a base for your own rendering, you can follow this <a href="https://yannsay.github.io/gtopenxlsx/articles/gt_to_xlsx_walkthrough.html" class="external-link">article</a> that looks into <code>gt_to_xlxs.</code></p>
 <p>I only developed following the example in this <a href="https://gt.rstudio.com/articles/case-study-gtcars.html" class="external-link">vignette</a>. Yet there are many things still not working such as:</p>
 <ul>
-<li>not all types of formatting are working<br>
-</li>
-<li>summary<br>
-</li>
+<li>not all types of formatting are working</li>
+<li>summary</li>
 <li>formatting: currently formatting reproduces the current format, does not change to excel formatting (i.e. change cells to dates or currencies)</li>
 <li>merge check other type of merge “merge_range”, “merge_uncert”, “merge_n_pct”, currently only “merge”</li>
-<li>alignment and styles : <a href="https://gt.rstudio.com/articles/case-study-gtcars.html#column-alignment-and-style-changes" class="external-link uri">https://gt.rstudio.com/articles/case-study-gtcars.html#column-alignment-and-style-changes</a>
-</li>
-<li>text_transform : <a href="https://gt.rstudio.com/articles/case-study-gtcars.html#text-transforms" class="external-link uri">https://gt.rstudio.com/articles/case-study-gtcars.html#text-transforms</a>
-</li>
+<li><a href="https://gt.rstudio.com/articles/case-study-gtcars.html#column-alignment-and-style-changes" class="external-link">alignment and styles</a></li>
+<li><a href="https://gt.rstudio.com/articles/case-study-gtcars.html#text-transforms" class="external-link">text_transform</a></li>
 <li>footnotes</li>
 </ul>
 <p>Also likely to become gtopenxlsx2 when migrating to openxlsx2.</p>
@@ -221,7 +219,6 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/yannsay/gtopenxlsx/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/yannsay/gtopenxlsx/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://github.com/yannsay/gtopenxlsx/actions/workflows/check-standard.yaml" class="external-link"><img src="https://github.com/yannsay/gtopenxlsx/actions/workflows/check-standard.yaml/badge.svg" alt="check-standard"></a></li>
 <li><a href="https://app.codecov.io/gh/yannsay/gtopenxlsx?branch=main" class="external-link"><img src="https://codecov.io/gh/yannsay/gtopenxlsx/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
