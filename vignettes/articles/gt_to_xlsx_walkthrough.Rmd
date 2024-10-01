@@ -1,0 +1,167 @@
+---
+title: "gt_to_xlsx walkthrough"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gtopenxlsx)
+```
+
+`gt_to_openxlsx` takes the great table as input. The first thing it will do, it will create an object call `ordered_data` (equivalent I guess of body in `gt`). All the following functions will then use the gt table and the ordered_data doing different manipulation.
+
+There are 3 types of functions:  
+
+- create_ordered_data: it will create the data.frame with the data.
+- apply_*: these functions will apply formatting, merge.
+- write_*: these functions will write the different part of the table in the sheet.
+
+```{r, message=FALSE}
+library(gtopenxlsx)
+library(gt)
+library(dplyr)
+order_countries <- c("Germany", "Italy", "United States", "Japan")
+
+gt_table <-
+  gtcars |>
+  arrange(
+    factor(ctry_origin, levels = order_countries),
+    mfr, desc(msrp)
+  ) |>
+  mutate(car = paste(mfr, model)) |>
+  select(-mfr, -model) |>
+  group_by(ctry_origin) |>
+  gt(rowname_col = "car") |>
+  cols_hide(columns = c(drivetrain, bdy_style)) |>
+  cols_move(
+    columns = c(trsmn, mpg_c, mpg_h),
+    after = trim
+  ) |>
+  tab_spanner(
+    label = "Performance",
+    columns = c(mpg_c, mpg_h, hp, hp_rpm, trq, trq_rpm)
+  ) |>
+  cols_merge(
+    columns = c(mpg_c, mpg_h),
+    pattern = "<<{1}c<br>{2}h>>"
+  ) |>
+  cols_merge(
+    columns = c(hp, hp_rpm),
+    pattern = "{1}<br>@{2}rpm"
+  ) |>
+  cols_merge(
+    columns = c(trq, trq_rpm),
+    pattern = "{1}<br>@{2}rpm"
+  ) |>
+  cols_label(
+    mpg_c = "MPG",
+    hp = "HP",
+    trq = "Torque",
+    year = "Year",
+    trim = "Trim",
+    trsmn = "Transmission",
+    msrp = "MSRP"
+  ) |>
+  fmt_currency(columns = msrp, decimals = 0) |> 
+  tab_header(
+    title = md("The Cars of **gtcars**"),
+    subtitle = "These are some fine automobiles"
+  ) |>
+  tab_source_note(
+    source_note = md(
+      "Source: Various pages within the Edmonds website."
+    )
+  ) 
+
+```
+
+```{r, eval=FALSE}
+library(openxlsx)
+wb <- createWorkbook()
+addWorksheet(wb, "gt_cars_example", gridLines = F)
+sheet_name <-"gt_cars_example"
+
+```
+
+```{r, eval=FALSE}
+ ordered_data <- gt_table |>
+    create_ordered_data()
+
+  if("_formats" %in% names( gt_table)) {
+    ordered_data <- apply_formats(gt_table,
+                                  ordered_data)
+
+  }
+
+  if("_col_merge" %in% names(gt_table)) {
+    ordered_data <- apply_col_merge(gt_table,ordered_data)
+  }
+
+  current_row <- 1
+
+  write_table_header(gt_table = gt_table,
+                     ordered_gt_data = ordered_data,
+                     wb = wb,
+                     sheet_name = sheet_name,
+                     row_to_start = current_row)
+  if(!is.null(gt_table$`_heading`$title)) {
+    current_row <- current_row + 1
+  }
+
+  if(!is.null(gt_table$`_heading`$subtitle)) {
+    current_row <- current_row + 1
+  }
+
+  if (nrow(gt_table$`_spanners`) > 0) {
+    write_spanners(gt_table = gt_table,
+                   ordered_gt_data = ordered_data,
+                   wb = wb,
+                   sheet_name = sheet_name,
+                   row_to_start = current_row)
+
+    number_of_level <- gt_table$`_spanners`$spanner_level|> max()
+    current_row <- current_row + number_of_level
+
+  }
+
+
+  write_stub_head_and_column_labels(gt_table = gt_table,
+                                    ordered_gt_data = ordered_data,
+                                    wb = wb,
+                                    sheet_name = sheet_name,
+                                    row_to_start = current_row)
+
+  current_row <- current_row + 1
+
+  list_cell_indexes <- write_stub_and_table_body(gt_table = gt_table,
+             ordered_gt_data = ordered_data,
+             wb = wb,
+             sheet_name = sheet_name,
+             row_to_start = current_row)
+
+
+  if (length(gt_table$`_source_notes`) > 0) {
+    final_index_stub <- list_cell_indexes |>
+      purrr::map(~.x[["end"]]) |>
+      purrr::list_c() |>
+      max()
+
+    current_row <- final_index_stub + 1
+    write_source_note(gt_table = gt_table,
+                      ordered_gt_data = ordered_data,
+                      wb = wb,
+                      sheet_name = sheet_name,
+                      row_to_start = current_row)
+  }
+```
+
+```{r,eval=FALSE}
+saveWorkbook(wb, "gt_cars_example.xlsx")
+
+```
+
