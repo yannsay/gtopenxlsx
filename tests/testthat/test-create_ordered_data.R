@@ -1,5 +1,4 @@
 test_that("return expected ordered when using dyplr::group_by, gt::col_move or gt::col_hide", {
-
   gtcars_8 <-
     gt::gtcars |>
     dplyr::group_by(ctry_origin) |>
@@ -33,15 +32,15 @@ test_that("return expected ordered when using dyplr::group_by, gt::col_move or g
   actual_output_with_hide_and_move <- tab_with_hide_and_move |>
     create_ordered_data()
 
-  expected_output <- readRDS(test_path("fixtures","gtcars8_example_ordered_data.RDS"))
+  expected_output <- readRDS(test_path("fixtures", "gtcars8_example_ordered_data.RDS"))
 
-  expected_output_with_hide_and_move  <- expected_output |>
+  expected_output_with_hide_and_move <- expected_output |>
     dplyr::select(-c(drivetrain, bdy_style)) |>
     dplyr::relocate(c(trsmn, mpg_c, mpg_h),
-                    .after = trim)
+      .after = trim
+    )
 
-  expect_equal(actual_output,expected_output)
+  expect_equal(actual_output, expected_output)
 
-  expect_equal(actual_output_with_hide_and_move,expected_output_with_hide_and_move)
-
+  expect_equal(actual_output_with_hide_and_move, expected_output_with_hide_and_move)
 })

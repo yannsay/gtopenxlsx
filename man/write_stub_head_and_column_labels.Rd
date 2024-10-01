@@ -36,7 +36,7 @@ openxlsx::addWorksheet(wb, "gtcars_example")
 ordered_example <- gtopenxlsx::gtcars_8 |>
   gt::gt() |>
   create_ordered_data()
-gt_table_example <-gtopenxlsx::gtcars_8 |>
+gt_table_example <- gtopenxlsx::gtcars_8 |>
   gt::gt()
 ordered_example <- gt_table_example |>
   create_ordered_data()

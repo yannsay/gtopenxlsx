@@ -3,9 +3,7 @@ missing_val_token <- "::missing_val::"
 #' @inheritParams write_stub_and_table_body
 #' Heavily copied from `gt:::perform_col_merge`
 apply_col_merge <- function(gt_table,
-                             ordered_data){
-
-
+                            ordered_data) {
   if (length(gt_table$`_col_merge`) == 0) {
     return(ordered_data)
   }
@@ -21,7 +19,7 @@ apply_col_merge <- function(gt_table,
     if (type == "merge") {
       mutated_column <- gt_table$`_col_merge`[[i]]$vars[[1]]
 
-      data_tbl<-gt_table$`_data` #should be the inital column
+      data_tbl <- gt_table$`_data` # should be the inital column
 
       columns <- gt_table$`_col_merge`[[i]][["vars"]]
       rows <- gt_table$`_col_merge`[[i]][["rows"]]
@@ -35,7 +33,6 @@ apply_col_merge <- function(gt_table,
         lapply(
           seq_along(glue_src_data),
           FUN = function(x) {
-
             # The source data (and 'source data' here means data that's already
             # been formatted and converted to `character`) having a character
             # `"NA"` value signals that the value should *probably* be treated
@@ -58,7 +55,6 @@ apply_col_merge <- function(gt_table,
       glued_cols <- as.character(glue_gt_gtopenxlsx(glue_src_data, pattern))
 
       if (grepl("<<.*?>>", pattern)) {
-
         glued_cols <-
           vapply(
             glued_cols,
@@ -72,10 +68,9 @@ apply_col_merge <- function(gt_table,
 
       glued_cols <- gsub(missing_val_token, "NA", glued_cols, fixed = TRUE)
 
-      ordered_data[[mutated_column]] <-ordered_data[[mutated_column]] |>  as.character()
+      ordered_data[[mutated_column]] <- ordered_data[[mutated_column]] |> as.character()
       ordered_data[rows, mutated_column] <- glued_cols
-
     }
   }
   return(ordered_data)
-  }
+}

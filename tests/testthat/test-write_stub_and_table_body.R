@@ -1,5 +1,4 @@
 test_that("Test that stub and table body are written correclty", {
-
   temp_dir_to_test <- withr::local_tempdir(fileext = "test")
   wb <- openxlsx::createWorkbook()
 
@@ -10,10 +9,11 @@ test_that("Test that stub and table body are written correclty", {
     ordered_example <- gt_table |>
       create_ordered_data()
     write_stub_and_table_body(gt_table,
-                              ordered_example,
-                              wb = wb,
-                              sheet_name = sheet,
-                              row_to_start = 1)
+      ordered_example,
+      wb = wb,
+      sheet_name = sheet,
+      row_to_start = 1
+    )
   }
 
   # no group_by
@@ -48,12 +48,12 @@ test_that("Test that stub and table body are written correclty", {
   openxlsx::saveWorkbook(wb, temp_file_location)
 
   actual_output <- readxl::excel_sheets(temp_file_location) |>
-    purrr::map(~openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
+    purrr::map(~ openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
 
   expected_file_location <- testthat::test_path("fixtures", "stub_and_body.xlsx")
 
   expected_output <- readxl::excel_sheets(expected_file_location) |>
-    purrr::map(~openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
+    purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
 
   expect_equal(actual_output[[1]], expected_output[[1]])
   expect_equal(actual_output[[2]], expected_output[[2]])
@@ -62,4 +62,3 @@ test_that("Test that stub and table body are written correclty", {
   expected_indexes_list <- readRDS(testthat::test_path("fixtures", "write_stub_indexes_list.RDS"))
   expect_equal(actual_indexes_list, expected_indexes_list)
 })
-

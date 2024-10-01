@@ -89,26 +89,26 @@ write_one_spanner <- function(spanner_info,
 #' ordered_data <- tab_with_spanner |>
 #'   create_ordered_data()
 #'
-#' write_spanners(gt_table = tab_with_spanner,
-#'                ordered_gt_data = ordered_data,
-#'                wb = wb,
-#'                sheet_name = "one_spanner",
-#'                row_to_start = 1)
-write_spanners <- function(gt_table, ordered_gt_data, wb, sheet_name, row_to_start){
-
+#' write_spanners(
+#'   gt_table = tab_with_spanner,
+#'   ordered_gt_data = ordered_data,
+#'   wb = wb,
+#'   sheet_name = "one_spanner",
+#'   row_to_start = 1
+#' )
+write_spanners <- function(gt_table, ordered_gt_data, wb, sheet_name, row_to_start) {
   spanner_helper <- create_spanner_helper(gt_table, ordered_gt_data)
 
   row_to_start_spanner <- row_to_start
-    for (i in 1:length(spanner_helper)) {
-      spanner_helper[[i]] |>
-        purrr::map(~ write_one_spanner(wb,
-                               sheet = sheet_name,
-                               spanner = .x,
-                               row = row_to_start_spanner,
-                               style = column_labels_border
-        ))
+  for (i in 1:length(spanner_helper)) {
+    spanner_helper[[i]] |>
+      purrr::map(~ write_one_spanner(wb,
+        sheet = sheet_name,
+        spanner = .x,
+        row = row_to_start_spanner,
+        style = column_labels_border
+      ))
 
-      row_to_start_spanner <- row_to_start_spanner + 1
-    }
+    row_to_start_spanner <- row_to_start_spanner + 1
+  }
 }
-

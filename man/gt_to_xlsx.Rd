@@ -27,5 +27,5 @@ example_0 <- gt::gtcars |>
   gt::gt()
 
 example_0 |>
-  gt_to_xlsx(wb = wb,sheet_name = "gtcars_example_0")
+  gt_to_xlsx(wb = wb, sheet_name = "gtcars_example_0")
 }

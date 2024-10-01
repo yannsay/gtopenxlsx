@@ -40,9 +40,11 @@ tab_with_spanner <-
 ordered_data <- tab_with_spanner |>
   create_ordered_data()
 
-write_spanners(gt_table = tab_with_spanner,
-               ordered_gt_data = ordered_data,
-               wb = wb,
-               sheet_name = "one_spanner",
-               row_to_start = 1)
+write_spanners(
+  gt_table = tab_with_spanner,
+  ordered_gt_data = ordered_data,
+  wb = wb,
+  sheet_name = "one_spanner",
+  row_to_start = 1
+)
 }

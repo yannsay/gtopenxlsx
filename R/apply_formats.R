@@ -2,12 +2,11 @@
 #' Heavily copied from `gt:::render_formats`
 apply_formats <- function(gt_table,
                           ordered_data) {
-
   if (length(gt_table$`_formats`) == 0) {
     return(ordered_data)
   }
 
-  for (fmt in seq_along(gt_table$`_formats`))  {
+  for (fmt in seq_along(gt_table$`_formats`)) {
     # from `gt:::render_formats`
     # Determine if the formatting function has a function relevant to
     # the context; if not, use the `default` function (which should
@@ -29,18 +28,17 @@ apply_formats <- function(gt_table,
       # from gtopenxlsx The checks if columns and format are compatible are not done, it is expecting that the
       # gt table is rendering.
 
-        # Omit rows that are not present in the `data_tbl` object
-        rows <- base::intersect(seq_len(nrow(ordered_data)), rows)
+      # Omit rows that are not present in the `data_tbl` object
+      rows <- base::intersect(seq_len(nrow(ordered_data)), rows)
 
-        result <- gt_table$`_formats`[[fmt]]$func[[eval_func]](ordered_data[[col]][rows])
+      result <- gt_table$`_formats`[[fmt]]$func[[eval_func]](ordered_data[[col]][rows])
 
-        # If any of the resulting output is `NA`, that means we want
-        # to NOT make changes to those particular cells' output
-        # (i.e. inherit the results of the previous formatter).
-        ### from gtopenxlsx forcing the new col to change mode/type
-        mode(ordered_data[[col]]) <- mode(result)
-        ordered_data[[col]][rows][!is.na(result)] <- result[!is.na(result)]
-
+      # If any of the resulting output is `NA`, that means we want
+      # to NOT make changes to those particular cells' output
+      # (i.e. inherit the results of the previous formatter).
+      ### from gtopenxlsx forcing the new col to change mode/type
+      mode(ordered_data[[col]]) <- mode(result)
+      ordered_data[[col]][rows][!is.na(result)] <- result[!is.na(result)]
     }
   }
   return(ordered_data)

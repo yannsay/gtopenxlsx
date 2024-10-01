@@ -1,5 +1,5 @@
 test_that("multiplication works", {
-  #case study: gtcars
+  # case study: gtcars
   # Get a subset of 8 cars from the `gtcars` dataset: two
   # from each manufacturer country of origin except the UK
 
@@ -68,18 +68,21 @@ test_that("multiplication works", {
   actual_output <- tab |>
     apply_col_merge(actual_ordered_data)
 
-  raw_expected_output <- readRDS(test_path("fixtures","gtcars8_example_ordered_data.RDS"))
+  raw_expected_output <- readRDS(test_path("fixtures", "gtcars8_example_ordered_data.RDS"))
 
   expected_output <- raw_expected_output |>
     dplyr::select(-c(drivetrain, bdy_style)) |>
     dplyr::relocate(c(trsmn, mpg_c, mpg_h),
-                    .after = trim) |>
-    dplyr::mutate(mpg_c = paste0(mpg_c, "c<br>", mpg_h, "h"),
-                  mpg_h = NULL,
-                  hp = paste0(hp, "<br>@", hp_rpm, "rpm"),
-                  hp_rpm = NULL,
-                  trq = paste0(trq, "<br>@", trq_rpm, "rpm"),
-                  trq_rpm = NULL)
+      .after = trim
+    ) |>
+    dplyr::mutate(
+      mpg_c = paste0(mpg_c, "c<br>", mpg_h, "h"),
+      mpg_h = NULL,
+      hp = paste0(hp, "<br>@", hp_rpm, "rpm"),
+      hp_rpm = NULL,
+      trq = paste0(trq, "<br>@", trq_rpm, "rpm"),
+      trq_rpm = NULL
+    )
 
   testthat::expect_equal(actual_output, expected_output)
-  })
+})

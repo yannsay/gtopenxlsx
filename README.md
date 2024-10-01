@@ -4,6 +4,11 @@
 # gtopenxlsx
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/yannsay/gtopenxlsx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yannsay/gtopenxlsx/actions/workflows/R-CMD-check.yaml)
+[![check-standard](https://github.com/yannsay/gtopenxlsx/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/yannsay/gtopenxlsx/actions/workflows/check-standard.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/yannsay/gtopenxlsx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/yannsay/gtopenxlsx?branch=main)
 <!-- badges: end -->
 
 The goal of gtopenxlsx is to export gt tables to xlsx format.
@@ -67,7 +72,7 @@ tab <-
     trsmn = "Transmission",
     msrp = "MSRP"
   ) |>
-  fmt_currency(columns = msrp, decimals = 0) |> 
+  fmt_currency(columns = msrp, decimals = 0) |>
   tab_header(
     title = md("The Cars of **gtcars**"),
     subtitle = "These are some fine automobiles"
@@ -76,14 +81,14 @@ tab <-
     source_note = md(
       "Source: Various pages within the Edmonds website."
     )
-  ) 
+  )
 ```
 
 ``` r
 library(openxlsx)
 wb <- createWorkbook()
 addWorksheet(wb, "gt_cars_example", gridLines = F)
-tab |> 
+tab |>
   gt_to_xlsx(wb, "gt_cars_example")
 saveWorkbook(wb, "gt_cars_example.xlsx")
 ```
@@ -92,6 +97,9 @@ saveWorkbook(wb, "gt_cars_example.xlsx")
 
 Please put in issues reproducible example of tables failing so that I
 can try as much as possible.
+
+If you want to use `gtopenxlsx` as a base for your own rendering, you
+can follow this article that looks into `gt_to_xlxs.`
 
 I only developed following the example in this
 [vignette](https://gt.rstudio.com/articles/case-study-gtcars.html). Yet

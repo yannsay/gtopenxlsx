@@ -1,5 +1,4 @@
 test_that("Test that group_by, rowname_col, spanners work correctly", {
-
   temp_dir_to_test <- withr::local_tempdir(fileext = "test")
   wb <- openxlsx::createWorkbook()
 
@@ -69,7 +68,7 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
       label = "TRQ",
       columns = starts_with("trq"),
       id = "trq-span"
-    )|>
+    ) |>
     gt::tab_spanner(
       label = "Performance",
       columns = c(mpg_c, mpg_h, hp, hp_rpm, trq, trq_rpm)
@@ -90,11 +89,12 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
   # with footsource
   openxlsx::addWorksheet(wb, "example_7")
 
-  example_7 <- example_6  |>
+  example_7 <- example_6 |>
     gt::tab_source_note(
       source_note = gt::md(
         "Source: Various pages within the Edmonds website."
-      ))
+      )
+    )
   gt_to_xlsx(example_7, wb, "example_7")
 
   temp_file_location <- paste0(temp_dir_to_test, "\\gt_to_xlsx.xlsx")
@@ -102,12 +102,12 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
   openxlsx::saveWorkbook(wb, temp_file_location)
 
   actual_output <- readxl::excel_sheets(temp_file_location) |>
-    purrr::map(~openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
+    purrr::map(~ openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
 
   expected_file_location <- testthat::test_path("fixtures", "gt_to_xlsx.xlsx")
 
   expected_output <- readxl::excel_sheets(expected_file_location) |>
-    purrr::map(~openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
+    purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
 
   # no group_by
   expect_equal(actual_output[[1]], expected_output[[1]])
@@ -126,7 +126,6 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
 
   # with headers
   expect_equal(actual_output[[6]], expected_output[[6]])
-
 })
 
 test_that("apply_col_merge is working correclty", {
@@ -199,16 +198,15 @@ test_that("apply_col_merge is working correclty", {
   openxlsx::saveWorkbook(wb, temp_file_location)
 
   actual_output <- readxl::excel_sheets(temp_file_location) |>
-    purrr::map(~openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
+    purrr::map(~ openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
 
   expected_file_location <- testthat::test_path("fixtures", "gt_to_xlsx_cols_merge.xlsx")
 
   expected_output <- readxl::excel_sheets(expected_file_location) |>
-    purrr::map(~openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
+    purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
 
   # cols_merge
   expect_equal(actual_output[[1]], expected_output[[1]])
-
 })
 
 
@@ -236,5 +234,4 @@ test_that("test that formats works correclty", {
 
   # cols_merge
   expect_equal(actual_output[[1]], expected_output[[1]])
-
 })
