@@ -6,9 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/yannsay/gtopenxlsx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yannsay/gtopenxlsx/actions/workflows/R-CMD-check.yaml)
-[![check-standard](https://github.com/yannsay/gtopenxlsx/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/yannsay/gtopenxlsx/actions/workflows/check-standard.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/yannsay/gtopenxlsx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/yannsay/gtopenxlsx?branch=main)
+
 <!-- badges: end -->
 
 The goal of gtopenxlsx is to export gt tables to xlsx format.
@@ -93,29 +93,32 @@ tab |>
 saveWorkbook(wb, "gt_cars_example.xlsx")
 ```
 
+![](inst/excel%20snapshot.png)
+
 ## Very beta version
 
 Please put in issues reproducible example of tables failing so that I
 can try as much as possible.
 
 If you want to use `gtopenxlsx` as a base for your own rendering, you
-can follow this article that looks into `gt_to_xlxs.`
+can follow this
+[article](https://yannsay.github.io/gtopenxlsx/articles/gt_to_xlsx_walkthrough.html)
+that looks into `gt_to_xlxs.`
 
 I only developed following the example in this
 [vignette](https://gt.rstudio.com/articles/case-study-gtcars.html). Yet
 there are many things still not working such as:
 
-- not all types of formatting are working  
-- summary  
+- not all types of formatting are working
+- summary
 - formatting: currently formatting reproduces the current format, does
   not change to excel formatting (i.e. change cells to dates or
   currencies)
 - merge check other type of merge “merge_range”, “merge_uncert”,
   “merge_n_pct”, currently only “merge”
-- alignment and styles :
-  <https://gt.rstudio.com/articles/case-study-gtcars.html#column-alignment-and-style-changes>
-- text_transform :
-  <https://gt.rstudio.com/articles/case-study-gtcars.html#text-transforms>
+- [alignment and
+  styles](https://gt.rstudio.com/articles/case-study-gtcars.html#column-alignment-and-style-changes)
+- [text_transform](https://gt.rstudio.com/articles/case-study-gtcars.html#text-transforms)
 - footnotes
 
 Also likely to become gtopenxlsx2 when migrating to openxlsx2.
