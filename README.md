@@ -93,7 +93,7 @@ tab |>
 saveWorkbook(wb, "gt_cars_example.xlsx")
 ```
 
-![](inst/excel%20snapshot.png)
+![](inst/figures/excelsnapshot.png)
 
 ## Very beta version
 
