@@ -4,16 +4,16 @@ percent_style <- openxlsx::createStyle(numFmt = "0%")
 sourcenote_style <- openxlsx::createStyle(fontSize = 10)
 
 border_colour <- openxlsx2::wb_color(hex = "D3D3D3")
-apply_title_style <- function(wb, sheet_name, rows, cols) {
+apply_title_style <- function(wb,rows, cols) {
   dims_to_style <- openxlsx2::wb_dims(rows = rows, cols = cols)
   wb <- wb |>
-    openxlsx2::wb_add_border(sheet = sheet_name,
+    openxlsx2::wb_add_border(
                              dims = dims_to_style,
                              top_border = "thin", top_color = border_colour,
                              right_border = "thin", right_color = border_colour,
                              bottom_border = "",
                              left_border = "thin", left_color = border_colour) |>
-    openxlsx2::wb_add_cell_style(sheet = sheet_name,
+    openxlsx2::wb_add_cell_style(
                                  dims = dims_to_style,
                                  horizontal = "center")
   return(wb)

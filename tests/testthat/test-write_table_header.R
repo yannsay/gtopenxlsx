@@ -14,7 +14,7 @@ test_that("Test that headers are written correctly", {
     wb <- write_table_header(gt_table,
       ordered_example,
       wb = wb,
-      sheet_name = sheet,
+      #sheet_name = sheet,
       row_to_start = 1
     )
 
