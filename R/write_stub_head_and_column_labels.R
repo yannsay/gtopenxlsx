@@ -18,7 +18,13 @@
 #'   create_ordered_data()
 #' gt_table_example |>
 #'   write_stub_head_and_column_labels(ordered_gt_data = ordered_example, wb, "gtcars_example", 1)
-write_stub_head_and_column_labels <- function(gt_table, ordered_gt_data, wb, sheet_name, row_to_start) {
+write_stub_head_and_column_labels <- function(wb, row_to_start,
+                                              gt_table,
+                                              ordered_gt_data#,
+                                              #wb,
+                                              #sheet_name,
+                                              #row_to_start
+                                              ) {
   labels_to_change <- gt_table$`_boxhead`$var |>
     purrr::set_names(gt_table$`_boxhead`$column_label)
   ordered_gt_data <- ordered_gt_data |>
@@ -29,13 +35,20 @@ write_stub_head_and_column_labels <- function(gt_table, ordered_gt_data, wb, she
     label_to_write[[1]] <- NA_character_
   }
   ## write columns names
-  openxlsx::writeData(wb, sheet_name,
-    x = label_to_write, colNames = F,
-    startRow = row_to_start
-  )
-  openxlsx::addStyle(wb, sheet_name,
-    rows = row_to_start,
-    cols = 1:length(label_to_write),
-    style = column_labels_border
-  )
+  wb <- wb |>
+    openxlsx2::wb_add_data(x = label_to_write,
+                           col_names = FALSE,
+                           start_row = row_to_start) |>
+    apply_style_column_label(rows = row_to_start,cols = 1:length(label_to_write))
+  # openxlsx::writeData(wb, sheet_name,
+  #   x = label_to_write, colNames = F,
+  #   startRow = row_to_start
+  # )
+  # openxlsx::addStyle(wb, sheet_name,
+  #   rows = row_to_start,
+  #   cols = 1:length(label_to_write),
+  #   style = column_labels_border
+  # )
+  return(wb)
+
 }

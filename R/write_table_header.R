@@ -19,7 +19,7 @@ write_table_header <- function(wb, row_to_start, gt_table, ordered_gt_data) {
     openxlsx2::wb_merge_cells( cols = 1:total_cols, rows = current_row ) |>
 
     # openxlsx::addStyle(wb, sheet_name, rows = current_row, cols = 1:total_cols, style = title_style)
-    apply_title_style(cols = 1:total_cols, rows = current_row)
+      apply_style_title(cols = 1:total_cols, rows = current_row)
 
     current_row <- current_row + 1
   }
@@ -34,7 +34,7 @@ write_table_header <- function(wb, row_to_start, gt_table, ordered_gt_data) {
     openxlsx2::wb_merge_cells( cols = 1:total_cols, rows = current_row ) |>
 
     # openxlsx::addStyle(wb, sheet_name, rows = current_row, cols = 1:total_cols, style = title_style)
-    apply_title_style(cols = 1:total_cols, rows = current_row)
+      apply_style_title(cols = 1:total_cols, rows = current_row)
 
   }
 
