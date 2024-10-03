@@ -18,6 +18,7 @@ Imports:
     glue,
     gt,
     openxlsx,
+    openxlsx2,
     purrr,
     rlang,
     tidyr,
