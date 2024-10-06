@@ -33,3 +33,14 @@ apply_style_column_label <- function(wb,rows, cols) {
 
 # column_labels_border <- openxlsx::createStyle(border = "TopLeftRight", borderColour = "#D3D3D3")
 
+apply_style_border_stub_and_body <- function(wb,rows, cols) {
+  dims_to_style <- openxlsx2::wb_dims(rows = rows, cols = cols)
+  wb <- wb |>
+    openxlsx2::wb_add_border(
+      dims = dims_to_style,
+      top_color = border_colour,
+      right_color = border_colour,
+      bottom_border = border_colour,
+      left_color = border_colour)
+  return(wb)
+}
