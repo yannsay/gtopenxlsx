@@ -4,28 +4,25 @@
 \alias{gt_to_xlsx}
 \title{Write a gt table to an xlsx workbook}
 \usage{
-gt_to_xlsx(gt_table, wb, sheet_name)
+gt_to_xlsx(wb, gt_table)
 }
 \arguments{
+\item{wb}{Name of the Workbook object created with `openxlsx2::wb_workbook()`}
+
 \item{gt_table}{A gt table}
-
-\item{wb}{Name of Workbook object like `openxlsx::createWorkbook()`}
-
-\item{sheet_name}{name of the sheet in the workbook}
 }
 \value{
-Nothing. It will update the wb object.
+wb with the active sheet with the gt table rendered.
 }
 \description{
 Write a gt table to an xlsx workbook
 }
 \examples{
-wb <- openxlsx::createWorkbook()
-openxlsx::addWorksheet(wb, "gtcars_example_0")
+wb <- openxlsx2::wb_workbook() |>
+  openxlsx2::openxlsx2::wb_add_worksheet("gtcars_example_0")
 
 example_0 <- gt::gtcars |>
   gt::gt()
 
-example_0 |>
-  gt_to_xlsx(wb = wb, sheet_name = "gtcars_example_0")
+wb <- gt_to_xlsx(example_0, wb = wb, sheet_name = "gtcars_example_0")
 }

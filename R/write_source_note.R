@@ -2,7 +2,7 @@
 #'
 #' @inheritParams write_stub_and_table_body
 #'
-#' @return Nothing. It will update the wb object with source note.
+#' @return wb with the active sheet with the source note.
 #' @export
 write_source_note <- function(wb, row_to_start,
                               gt_table, ordered_gt_data#,

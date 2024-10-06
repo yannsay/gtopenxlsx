@@ -1,22 +1,21 @@
 #' Write a gt table to an xlsx workbook
 #'
+#' @param wb Name of the Workbook object created with `openxlsx2::wb_workbook()`
 #' @param gt_table A gt table
-#' @param wb Name of Workbook object like `openxlsx::createWorkbook()`
-#' @param sheet_name name of the sheet in the workbook
 #'
-#' @return Nothing. It will update the wb object.
+#' @return wb with the active sheet with the gt table rendered.
 #' @export
 #'
 #' @examples
-#' wb <- openxlsx::createWorkbook()
-#' openxlsx::addWorksheet(wb, "gtcars_example_0")
+#' wb <- openxlsx2::wb_workbook() |>
+#'   openxlsx2::openxlsx2::wb_add_worksheet("gtcars_example_0")
 #'
 #' example_0 <- gt::gtcars |>
 #'   gt::gt()
 #'
-#' example_0 |>
-#'   gt_to_xlsx(wb = wb, sheet_name = "gtcars_example_0")
-gt_to_xlsx <- function(gt_table, wb#,
+#' wb <- gt_to_xlsx(example_0, wb = wb, sheet_name = "gtcars_example_0")
+gt_to_xlsx <- function(wb,
+                       gt_table
                        #sheet_name
                        ) {
   ordered_data <- gt_table |>

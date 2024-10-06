@@ -2,22 +2,19 @@
 #'
 #' @inheritParams write_stub_and_table_body
 #'
-#' @return Nothing. It will update the wb object with stub and columns labels.
+#' @return wb with the active sheet with stub and columns labels.
 #' @export
 #'
 #' @examples
-#' wb <- openxlsx::createWorkbook()
-#' openxlsx::addWorksheet(wb, "gtcars_example")
+#' wb <- openxlsx2::wb_workbook() |>
+#'   openxlsx2::openxlsx2::wb_add_worksheet()
 #'
-#' ordered_example <- gtopenxlsx::gtcars_8 |>
-#'   gt::gt() |>
-#'   create_ordered_data()
 #' gt_table_example <- gtopenxlsx::gtcars_8 |>
 #'   gt::gt()
 #' ordered_example <- gt_table_example |>
 #'   create_ordered_data()
-#' gt_table_example |>
-#'   write_stub_head_and_column_labels(ordered_gt_data = ordered_example, wb, "gtcars_example", 1)
+#' wb <- wb |>
+#'   write_stub_head_and_column_labels(row_to_start = 1gt_table = gt_table_example, ordered_gt_data = ordered_example, 1)
 write_stub_head_and_column_labels <- function(wb, row_to_start,
                                               gt_table,
                                               ordered_gt_data#,

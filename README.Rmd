@@ -27,7 +27,7 @@ The goal of gtopenxlsx is to export gt tables to xlsx format.
 
 You can install the development version of gtopenxlsx like so:
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 devtools::install_github("yannsay-gtopenxlsx")
 ```
 
@@ -94,12 +94,12 @@ tab <-
 ```
 
 ```{r, eval=FALSE}
-library(openxlsx)
-wb <- createWorkbook()
-addWorksheet(wb, "gt_cars_example", gridLines = F)
-tab |>
-  gt_to_xlsx(wb, "gt_cars_example")
-saveWorkbook(wb, "gt_cars_example.xlsx")
+library(openxlsx2)
+wb <- wb_workbook() |> 
+  wb_add_worksheet("gt_cars_example", gridLines = F)
+wb <- wb |>
+  gt_to_xlsx(tab)
+wb_save(wb, "gt_cars_example.xlsx")
 ```
 
 ![](inst/figures/excelsnapshot.png)

@@ -1,11 +1,13 @@
-Package: gtopenxlsx
+Package: gtopenxlsx2
 Type: Package
 Title: Render gt tables to xlsx format through openxlsx
 Version: 0.1.0
 Author: Yann Say
 Maintainer: Yann Say <yann.say@hotmail.com>
 Description: This package aims to export great tables to excel.
-    `gt_to_openxlsx` takes the great table as input. The first thing it will do, it will create an object call `ordered_data` (equivalent I guess of body in `gt`). All the following functions will then use the gt table and the ordered_data doing different manipulation.
+    `gt_to_xlsx` takes the great table (from `gt::gt()`) as input. The first thing it will do, it 
+    will create an object call `ordered_data` (equivalent I guess of body in `gt`). All the 
+    following functions will then use the gt table and the ordered_data doing different manipulation.
     There are 3 types of functions:  
     - create_ordered_data: it will create the data.frame with the data.
     - apply_*: these functions will apply formatting, merge.

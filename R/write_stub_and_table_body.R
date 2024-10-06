@@ -2,15 +2,16 @@
 #'
 #' @inheritParams gt_to_xlsx
 #' @param ordered_gt_data ordered data from `create_ordered_data`
-#' @param row_to_start Number of the row where to start writting the stub and body.
+#' @param row_to_start Number of the row where to start writing the stub and body.
 #'
-#' @return It will update the wb object with stub and body table. In addition, it will return a list
-#' with the first row and last row with information for each group.
+#' @return Returns a list with :
+#'    - wb with the active sheet with stub and body table.
+#'    - a list with the first row and last row with information for each group.
 #' @export
 #'
 #' @examples
-#' wb <- openxlsx::createWorkbook()
-#' openxlsx::addWorksheet(wb, "gtcars_example")
+#' wb <- openxlsx2::wb_workbook() |>
+#'   openxlsx2::openxlsx2::wb_add_worksheet()
 #'
 #' example_0 <- gt::gtcars |>
 #'   gt::gt()
@@ -18,8 +19,8 @@
 #' gtcars_example <- example_0 |>
 #'   create_ordered_data()
 #'
-#' example_0 |>
-#'   write_stub_and_table_body(ordered_gt_data = gtcars_example, wb, "gtcars_example", 1)
+#' wb <- example_0 |>
+#'   write_stub_and_table_body(ordered_gt_data = gtcars_example,1)
 write_stub_and_table_body <- function(wb,row_to_start,gt_table, ordered_gt_data#,  sheet_name,
                                       ) {
   label_groups_row <- list()

@@ -2,7 +2,7 @@
 #'
 #' @inheritParams write_stub_and_table_body
 #'
-#' @return Nothing. It will update the wb object with table headers.
+#' @return wb with the active sheet with table headers.
 #' @export
 write_table_header <- function(wb, row_to_start, gt_table, ordered_gt_data) {
   current_row <- row_to_start

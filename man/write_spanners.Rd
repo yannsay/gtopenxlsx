@@ -4,21 +4,19 @@
 \alias{write_spanners}
 \title{Write spanners}
 \usage{
-write_spanners(gt_table, ordered_gt_data, wb, sheet_name, row_to_start)
+write_spanners(wb, gt_table, ordered_gt_data, row_to_start)
 }
 \arguments{
+\item{wb}{Name of the Workbook object created with `openxlsx2::wb_workbook()`}
+
 \item{gt_table}{A gt table}
 
 \item{ordered_gt_data}{ordered data from `create_ordered_data`}
 
-\item{wb}{Name of Workbook object like `openxlsx::createWorkbook()`}
-
-\item{sheet_name}{name of the sheet in the workbook}
-
-\item{row_to_start}{Number of the row where to start writting the stub and body.}
+\item{row_to_start}{Number of the row where to start writing the stub and body.}
 }
 \value{
-Nothing. It will update the wb object with all spanners.
+wb with the active sheet with all spanners.
 }
 \description{
 It creates a spanner helper with `create_ordered_data` then uses `write_one_spanner` to write all
@@ -26,8 +24,8 @@ spanners.
 The cells of the spanner will be merged.
 }
 \examples{
-wb <- openxlsx::createWorkbook()
-openxlsx::addWorksheet(wb, "one_spanner")
+wb <- openxlsx2::wb_workbook() |>
+  openxlsx2::openxlsx2::wb_add_worksheet()
 
 tab_with_spanner <-
   gtcars_8 |>
@@ -40,11 +38,9 @@ tab_with_spanner <-
 ordered_data <- tab_with_spanner |>
   create_ordered_data()
 
-write_spanners(
+wb <- wb |> write_spanners(
   gt_table = tab_with_spanner,
   ordered_gt_data = ordered_data,
-  wb = wb,
-  sheet_name = "one_spanner",
   row_to_start = 1
 )
 }

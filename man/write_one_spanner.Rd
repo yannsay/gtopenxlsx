@@ -4,22 +4,14 @@
 \alias{write_one_spanner}
 \title{Helper to write one spanner}
 \usage{
-write_one_spanner(
-  spanner_info,
-  wb,
-  sheet_name,
-  row_to_start,
-  style = column_labels_border
-)
+write_one_spanner(wb, spanner_info, row_to_start)
 }
 \arguments{
+\item{wb}{Name of the Workbook object created with `openxlsx2::wb_workbook()`}
+
 \item{spanner_info}{helper with spanner columns number and label.}
 
-\item{wb}{Name of Workbook object like `openxlsx::createWorkbook()`}
-
-\item{sheet_name}{name of the sheet in the workbook}
-
-\item{row_to_start}{Number of the row where to start writting the stub and body.}
+\item{row_to_start}{Number of the row where to start writing the stub and body.}
 
 \item{style}{style to use to format the spanner.}
 }

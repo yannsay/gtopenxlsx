@@ -82,12 +82,12 @@ write_one_spanner <- function(wb,
 #'
 #' @inheritParams write_stub_and_table_body
 #'
-#' @return Nothing. It will update the wb object with all spanners.
+#' @return wb with the active sheet with all spanners.
 #' @export
 #'
 #' @examples
-#' wb <- openxlsx::createWorkbook()
-#' openxlsx::addWorksheet(wb, "one_spanner")
+#' wb <- openxlsx2::wb_workbook() |>
+#'   openxlsx2::openxlsx2::wb_add_worksheet()
 #'
 #' tab_with_spanner <-
 #'   gtcars_8 |>
@@ -100,11 +100,9 @@ write_one_spanner <- function(wb,
 #' ordered_data <- tab_with_spanner |>
 #'   create_ordered_data()
 #'
-#' write_spanners(
+#' wb <- wb |> write_spanners(
 #'   gt_table = tab_with_spanner,
 #'   ordered_gt_data = ordered_data,
-#'   wb = wb,
-#'   sheet_name = "one_spanner",
 #'   row_to_start = 1
 #' )
 write_spanners <- function(wb, gt_table, ordered_gt_data,

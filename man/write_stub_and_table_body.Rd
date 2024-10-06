@@ -4,35 +4,28 @@
 \alias{write_stub_and_table_body}
 \title{Write stub and table body}
 \usage{
-write_stub_and_table_body(
-  gt_table,
-  ordered_gt_data,
-  wb,
-  sheet_name,
-  row_to_start
-)
+write_stub_and_table_body(wb, row_to_start, gt_table, ordered_gt_data)
 }
 \arguments{
+\item{wb}{Name of the Workbook object created with `openxlsx2::wb_workbook()`}
+
+\item{row_to_start}{Number of the row where to start writing the stub and body.}
+
 \item{gt_table}{A gt table}
 
 \item{ordered_gt_data}{ordered data from `create_ordered_data`}
-
-\item{wb}{Name of Workbook object like `openxlsx::createWorkbook()`}
-
-\item{sheet_name}{name of the sheet in the workbook}
-
-\item{row_to_start}{Number of the row where to start writting the stub and body.}
 }
 \value{
-It will update the wb object with stub and body table. In addition, it will return a list
-with the first row and last row with information for each group.
+Returns a list with :
+   - wb with the active sheet with stub and body table.
+   - a list with the first row and last row with information for each group.
 }
 \description{
 Write stub and table body
 }
 \examples{
-wb <- openxlsx::createWorkbook()
-openxlsx::addWorksheet(wb, "gtcars_example")
+wb <- openxlsx2::wb_workbook() |>
+  openxlsx2::openxlsx2::wb_add_worksheet()
 
 example_0 <- gt::gtcars |>
   gt::gt()
@@ -40,6 +33,6 @@ example_0 <- gt::gtcars |>
 gtcars_example <- example_0 |>
   create_ordered_data()
 
-example_0 |>
-  write_stub_and_table_body(ordered_gt_data = gtcars_example, wb, "gtcars_example", 1)
+wb <- example_0 |>
+  write_stub_and_table_body(ordered_gt_data = gtcars_example,1)
 }
