@@ -16,7 +16,9 @@
 #'
 #' example_0 |>
 #'   gt_to_xlsx(wb = wb, sheet_name = "gtcars_example_0")
-gt_to_xlsx <- function(gt_table, wb, sheet_name) {
+gt_to_xlsx <- function(gt_table, wb#,
+                       #sheet_name
+                       ) {
   ordered_data <- gt_table |>
     create_ordered_data()
 
@@ -33,11 +35,12 @@ gt_to_xlsx <- function(gt_table, wb, sheet_name) {
 
   current_row <- 1
 
-  write_table_header(
+  wb <- write_table_header(
+    wb = wb,
+
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
-    wb = wb,
-    sheet_name = sheet_name,
+    # sheet_name = sheet_name,
     row_to_start = current_row
   )
   if (!is.null(gt_table$`_heading`$title)) {
@@ -49,11 +52,11 @@ gt_to_xlsx <- function(gt_table, wb, sheet_name) {
   }
 
   if (nrow(gt_table$`_spanners`) > 0) {
-    write_spanners(
+    wb <- write_spanners(
       gt_table = gt_table,
       ordered_gt_data = ordered_data,
       wb = wb,
-      sheet_name = sheet_name,
+      # sheet_name = sheet_name,
       row_to_start = current_row
     )
 
@@ -62,23 +65,27 @@ gt_to_xlsx <- function(gt_table, wb, sheet_name) {
   }
 
 
-  write_stub_head_and_column_labels(
+  wb <- write_stub_head_and_column_labels(
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
     wb = wb,
-    sheet_name = sheet_name,
+    # sheet_name = sheet_name,
     row_to_start = current_row
   )
 
   current_row <- current_row + 1
 
-  list_cell_indexes <- write_stub_and_table_body(
+  wb_and_indexes <- write_stub_and_table_body(
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
     wb = wb,
-    sheet_name = sheet_name,
+    # sheet_name = sheet_name,
     row_to_start = current_row
   )
+
+  wb <- wb_and_indexes[["wb"]]
+
+  list_cell_indexes <- wb_and_indexes[["cell_data_row"]]
 
 
   if (length(gt_table$`_source_notes`) > 0) {
@@ -88,12 +95,13 @@ gt_to_xlsx <- function(gt_table, wb, sheet_name) {
       max()
 
     current_row <- final_index_stub + 1
-    write_source_note(
+   wb <- write_source_note(
       gt_table = gt_table,
       ordered_gt_data = ordered_data,
       wb = wb,
-      sheet_name = sheet_name,
+      # sheet_name = sheet_name,
       row_to_start = current_row
     )
   }
+  return(wb)
 }
