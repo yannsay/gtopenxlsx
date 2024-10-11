@@ -23,12 +23,15 @@ Write stub and columns label
 }
 \examples{
 wb <- openxlsx2::wb_workbook() |>
-  openxlsx2::openxlsx2::wb_add_worksheet()
+  openxlsx2::wb_add_worksheet()
 
-gt_table_example <- gtopenxlsx::gtcars_8 |>
+gt_table_example <- gtcars_8 |>
   gt::gt()
 ordered_example <- gt_table_example |>
   create_ordered_data()
 wb <- wb |>
-  write_stub_head_and_column_labels(row_to_start = 1gt_table = gt_table_example, ordered_gt_data = ordered_example, 1)
+  write_stub_head_and_column_labels(row_to_start = 1,
+                                    gt_table = gt_table_example,
+                                    ordered_gt_data = ordered_example)
+
 }

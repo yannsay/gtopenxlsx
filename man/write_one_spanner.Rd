@@ -12,8 +12,6 @@ write_one_spanner(wb, spanner_info, row_to_start)
 \item{spanner_info}{helper with spanner columns number and label.}
 
 \item{row_to_start}{Number of the row where to start writing the stub and body.}
-
-\item{style}{style to use to format the spanner.}
 }
 \value{
 Nothing. It will update the wb object with one spanner.

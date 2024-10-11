@@ -1,7 +1,3 @@
-# title_style <- openxlsx::createStyle(halign = "center", border = "TopLeftRight", borderColour = "#D3D3D3")
-# percent_style <- openxlsx::createStyle(numFmt = "0%")
-sourcenote_style <- openxlsx::createStyle(fontSize = 10)
-
 border_colour <- openxlsx2::wb_color(hex = "D3D3D3")
 apply_style_title <- function(wb,rows, cols) {
   dims_to_style <- openxlsx2::wb_dims(rows = rows, cols = cols)
@@ -30,8 +26,6 @@ apply_style_column_label <- function(wb,rows, cols) {
       left_color = border_colour)
   return(wb)
 }
-
-# column_labels_border <- openxlsx::createStyle(border = "TopLeftRight", borderColour = "#D3D3D3")
 
 apply_style_border_stub_and_body <- function(wb,rows, cols) {
   dims_to_style <- openxlsx2::wb_dims(rows = rows, cols = cols)

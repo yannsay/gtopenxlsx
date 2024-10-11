@@ -1,4 +1,4 @@
-Package: gtopenxlsx2
+Package: gtopenxlsx
 Type: Package
 Title: Render gt tables to xlsx format through openxlsx
 Version: 0.1.0
@@ -19,7 +19,6 @@ Imports:
     dplyr,
     glue,
     gt,
-    openxlsx,
     openxlsx2,
     purrr,
     rlang,

@@ -25,14 +25,11 @@ Write stub and table body
 }
 \examples{
 wb <- openxlsx2::wb_workbook() |>
-  openxlsx2::openxlsx2::wb_add_worksheet()
-
+  openxlsx2::wb_add_worksheet()
 example_0 <- gt::gtcars |>
   gt::gt()
-
 gtcars_example <- example_0 |>
   create_ordered_data()
-
-wb <- example_0 |>
-  write_stub_and_table_body(ordered_gt_data = gtcars_example,1)
+wb <-  wb |>
+  write_stub_and_table_body(gt_table = example_0,ordered_gt_data = gtcars_example,1)
 }

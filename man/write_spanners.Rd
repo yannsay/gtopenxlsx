@@ -25,8 +25,7 @@ The cells of the spanner will be merged.
 }
 \examples{
 wb <- openxlsx2::wb_workbook() |>
-  openxlsx2::openxlsx2::wb_add_worksheet()
-
+  openxlsx2::wb_add_worksheet()
 tab_with_spanner <-
   gtcars_8 |>
   gt::gt() |>
@@ -34,10 +33,8 @@ tab_with_spanner <-
     label = "Performance",
     columns = c(mpg_c, mpg_h, hp, hp_rpm, trq, trq_rpm)
   )
-
 ordered_data <- tab_with_spanner |>
   create_ordered_data()
-
 wb <- wb |> write_spanners(
   gt_table = tab_with_spanner,
   ordered_gt_data = ordered_data,

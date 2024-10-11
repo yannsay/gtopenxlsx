@@ -85,12 +85,12 @@ tab <-
 ```
 
 ``` r
-library(openxlsx)
-wb <- createWorkbook()
-addWorksheet(wb, "gt_cars_example", gridLines = F)
-tab |>
-  gt_to_xlsx(wb, "gt_cars_example")
-saveWorkbook(wb, "gt_cars_example.xlsx")
+library(openxlsx2)
+wb <- wb_workbook() |> 
+  wb_add_worksheet("gt_cars_example", gridLines = F)
+wb <- wb |>
+  gt_to_xlsx(tab)
+wb_save(wb, "gt_cars_example.xlsx")
 ```
 
 ![](inst/figures/excelsnapshot.png)

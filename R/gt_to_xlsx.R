@@ -8,12 +8,11 @@
 #'
 #' @examples
 #' wb <- openxlsx2::wb_workbook() |>
-#'   openxlsx2::openxlsx2::wb_add_worksheet("gtcars_example_0")
-#'
+#'   openxlsx2::wb_add_worksheet("gtcars_example_0")
 #' example_0 <- gt::gtcars |>
 #'   gt::gt()
+#' wb <- gt_to_xlsx(wb = wb,example_0)
 #'
-#' wb <- gt_to_xlsx(example_0, wb = wb, sheet_name = "gtcars_example_0")
 gt_to_xlsx <- function(wb,
                        gt_table
                        #sheet_name
@@ -39,7 +38,6 @@ gt_to_xlsx <- function(wb,
 
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
-    # sheet_name = sheet_name,
     row_to_start = current_row
   )
   if (!is.null(gt_table$`_heading`$title)) {
@@ -55,7 +53,6 @@ gt_to_xlsx <- function(wb,
       gt_table = gt_table,
       ordered_gt_data = ordered_data,
       wb = wb,
-      # sheet_name = sheet_name,
       row_to_start = current_row
     )
 
@@ -68,7 +65,6 @@ gt_to_xlsx <- function(wb,
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
     wb = wb,
-    # sheet_name = sheet_name,
     row_to_start = current_row
   )
 
@@ -78,7 +74,6 @@ gt_to_xlsx <- function(wb,
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
     wb = wb,
-    # sheet_name = sheet_name,
     row_to_start = current_row
   )
 
@@ -98,7 +93,6 @@ gt_to_xlsx <- function(wb,
       gt_table = gt_table,
       ordered_gt_data = ordered_data,
       wb = wb,
-      # sheet_name = sheet_name,
       row_to_start = current_row
     )
   }

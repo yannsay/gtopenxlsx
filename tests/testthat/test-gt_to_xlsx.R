@@ -11,12 +11,9 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
   example_1 <- gtcars_8 |>
     gt::gt()
 
-  wb <- gt_to_xlsx(example_1, wb#,
-                   # "example_1"
-                   )
+  wb <- gt_to_xlsx(wb = wb, gt_table = example_1)
 
   # with group_by
-  # openxlsx::addWorksheet(wb, "example_2")
   wb <- wb |>
     openxlsx2::wb_add_worksheet(sheet = "example_2")
 
@@ -24,12 +21,11 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
     dplyr::group_by(ctry_origin) |>
     gt::gt()
 
-  wb<-gt_to_xlsx(example_2, wb#,
-                 #"example_2"
+  wb<-gt_to_xlsx(wb,
+                 example_2
                  )
 
   # with rowname_col
-  # openxlsx::addWorksheet(wb, "example_3")
   wb <- wb |>
     openxlsx2::wb_add_worksheet(sheet = "example_3")
   order_countries <- c("Germany", "Italy", "United States", "Japan")
@@ -45,12 +41,10 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
     dplyr::group_by(ctry_origin) |>
     gt::gt(rowname_col = "car")
 
-  wb <- gt_to_xlsx(example_3, wb#,
-                   #"example_3"
+  wb <- gt_to_xlsx(wb,example_3
                    )
 
   # with spanners
-  # openxlsx::addWorksheet(wb, "example_4")
   wb <- wb |>
     openxlsx2::wb_add_worksheet(sheet = "example_4")
 
@@ -62,12 +56,10 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
       columns = c(mpg_c, mpg_h, hp, hp_rpm, trq, trq_rpm)
     )
 
-  wb <- gt_to_xlsx(example_4, wb#,
-                   #"example_4"
+  wb <- gt_to_xlsx(wb, example_4
                    )
 
   # with multiple spanners
-  # openxlsx::addWorksheet(wb, "example_5")
   wb <- wb |>
     openxlsx2::wb_add_worksheet(sheet = "example_5")
 
@@ -92,8 +84,7 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
       columns = c(mpg_c, mpg_h, hp, hp_rpm, trq, trq_rpm)
     )
 
-  wb <- gt_to_xlsx(example_5, wb#,
-                   #"example_5"
+  wb <- gt_to_xlsx(wb, example_5
                    )
 
   # with headers
@@ -106,12 +97,10 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
       title = gt::md("The Cars of **gtcars**"),
       subtitle = "These are some fine automobiles"
     )
-  wb <- gt_to_xlsx(example_6, wb#,
-                   #"example_6"
+  wb <- gt_to_xlsx(wb, example_6
                    )
 
   # with footsource
-  # openxlsx::addWorksheet(wb, "example_7")
   wb <- wb |>
     openxlsx2::wb_add_worksheet(sheet = "example_7")
 
@@ -121,23 +110,20 @@ test_that("Test that group_by, rowname_col, spanners work correctly", {
         "Source: Various pages within the Edmonds website."
       )
     )
-  wb <- gt_to_xlsx(example_7, wb#,
-                   #"example_7"
+  wb <- gt_to_xlsx(wb, example_7
                    )
 
   temp_file_location <- paste0(temp_dir_to_test, "\\gt_to_xlsx.xlsx")
 
-  # openxlsx::saveWorkbook(wb, temp_file_location)
+
   openxlsx2::wb_save(wb, temp_file_location)
 
   actual_output <- readxl::excel_sheets(temp_file_location) |>
-    # purrr::map(~ openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
     purrr::map(~ openxlsx2::wb_to_df(file = temp_file_location, sheet = .x))
 
   expected_file_location <- testthat::test_path("fixtures", "gt_to_xlsx.xlsx")
 
   expected_output <- readxl::excel_sheets(expected_file_location) |>
-    # purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
     purrr::map(~ openxlsx2::wb_to_df(file = expected_file_location, sheet = .x))
 
   # no group_by
@@ -219,27 +205,22 @@ test_that("apply_col_merge is working correclty", {
     )
 
   temp_dir_to_test <- withr::local_tempdir(fileext = "test")
-  # wb <- openxlsx::createWorkbook()
   wb <- openxlsx2::wb_workbook()
 
-  # openxlsx::addWorksheet(wb, "example_cols_merge")
   wb <- wb |> openxlsx2::wb_add_worksheet("example_cols_merge")
-  wb <- gt_to_xlsx(test_col_merge, wb#, "example_cols_merge"
+  wb <- gt_to_xlsx( wb, test_col_merge
                    )
 
   temp_file_location <- paste0(temp_dir_to_test, "\\gt_to_xlsx_cols_merge.xlsx")
 
-  # openxlsx::saveWorkbook(wb, temp_file_location)
   openxlsx2::wb_save(wb, temp_file_location)
 
   actual_output <- readxl::excel_sheets(temp_file_location) |>
-    # purrr::map(~ openxlsx::read.xlsx(xlsxFile = temp_file_location, sheet = .x))
     purrr::map(~ openxlsx2::wb_to_df(file = temp_file_location, sheet = .x))
 
   expected_file_location <- testthat::test_path("fixtures", "gt_to_xlsx_cols_merge.xlsx")
 
   expected_output <- readxl::excel_sheets(expected_file_location) |>
-    # purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
     purrr::map(~ openxlsx2::wb_to_df(file = expected_file_location, sheet = .x))
 
   # cols_merge
@@ -254,29 +235,23 @@ test_that("test that formats works correclty", {
     gt::fmt_currency(columns = msrp, decimals = 0)
 
   temp_dir_to_test <- withr::local_tempdir(fileext = "test")
-  # wb <- openxlsx::createWorkbook()
   wb <- openxlsx2::wb_workbook()
 
-  # openxlsx::addWorksheet(wb, "fmt_currency_example")
   wb <- wb |>
     openxlsx2::wb_add_worksheet("fmt_currency_example")
-  wb <- gt_to_xlsx(fmt_currency_example, wb#, "fmt_currency_example"
+  wb <- gt_to_xlsx(wb, fmt_currency_example
                    )
 
   temp_file_location <- paste0(temp_dir_to_test, "\\fmt_currency_example.xlsx")
 
-  # openxlsx::saveWorkbook(wb, temp_file_location)
   openxlsx2::wb_save(wb, temp_file_location)
 
-  # actual_output <- openxlsx::read.xlsx(temp_file_location)
   actual_output <- openxlsx2::wb_to_df(temp_file_location)
 
   expected_file_location <- testthat::test_path("fixtures", "gt_to_xlsx_fmt_currency.xlsx")
 
-  # expected_output <- openxlsx::read.xlsx(expected_file_location)
   expected_output <- openxlsx2::wb_to_df(expected_file_location)
 
-  # cols_merge
   expect_equal(actual_output[[1]], expected_output[[1]])
 
 })
