@@ -11,12 +11,11 @@
 #'   openxlsx2::wb_add_worksheet("gtcars_example_0")
 #' example_0 <- gt::gtcars |>
 #'   gt::gt()
-#' wb <- gt_to_xlsx(wb = wb,example_0)
+#' wb <- gt_to_xlsx(wb = wb, example_0)
 #'
 gt_to_xlsx <- function(wb,
                        gt_table
-                       #sheet_name
-                       ) {
+) {
   ordered_data <- gt_table |>
     create_ordered_data()
 
@@ -35,7 +34,6 @@ gt_to_xlsx <- function(wb,
 
   wb <- write_table_header(
     wb = wb,
-
     gt_table = gt_table,
     ordered_gt_data = ordered_data,
     row_to_start = current_row
@@ -89,7 +87,7 @@ gt_to_xlsx <- function(wb,
       max()
 
     current_row <- final_index_stub + 1
-   wb <- write_source_note(
+    wb <- write_source_note(
       gt_table = gt_table,
       ordered_gt_data = ordered_data,
       wb = wb,

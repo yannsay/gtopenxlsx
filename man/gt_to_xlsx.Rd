@@ -22,6 +22,6 @@ wb <- openxlsx2::wb_workbook() |>
   openxlsx2::wb_add_worksheet("gtcars_example_0")
 example_0 <- gt::gtcars |>
   gt::gt()
-wb <- gt_to_xlsx(wb = wb,example_0)
+wb <- gt_to_xlsx(wb = wb, example_0)
 
 }

@@ -45,16 +45,15 @@ create_spanner_helper <- function(gt_table, ordered_gt_data) {
 #'
 write_one_spanner <- function(wb,
                               spanner_info,
-                              row_to_start
-                              ) {
-
+                              row_to_start) {
   wb <- wb |>
-    openxlsx2::wb_add_data(x = spanner_info$label_spanner,
-                           start_row = row_to_start,
-                           start_col = min(spanner_info$column_ids_spanner),
-                           col_names = FALSE) |>
-    openxlsx2::wb_merge_cells( cols = spanner_info$column_ids_spanner, rows = row_to_start ) |>
-
+    openxlsx2::wb_add_data(
+      x = spanner_info$label_spanner,
+      start_row = row_to_start,
+      start_col = min(spanner_info$column_ids_spanner),
+      col_names = FALSE
+    ) |>
+    openxlsx2::wb_merge_cells(cols = spanner_info$column_ids_spanner, rows = row_to_start) |>
     apply_style_column_label(rows = row_to_start, cols = spanner_info$column_ids_spanner)
   return(wb)
 }
@@ -87,20 +86,18 @@ write_one_spanner <- function(wb,
 #'   ordered_gt_data = ordered_data,
 #'   row_to_start = 1
 #' )
-
 write_spanners <- function(wb, gt_table, ordered_gt_data,
                            row_to_start) {
   spanner_helper <- create_spanner_helper(gt_table, ordered_gt_data)
 
   row_to_start_spanner <- row_to_start
   for (i in 1:length(spanner_helper)) {
-    for(j in 1:length(spanner_helper[[i]])) {
-
+    for (j in 1:length(spanner_helper[[i]])) {
       wb <- wb |>
         write_one_spanner(spanner_helper[[i]][[j]],
-                          row_to_start = row_to_start_spanner)
-
-      }
+          row_to_start = row_to_start_spanner
+        )
+    }
     row_to_start_spanner <- row_to_start_spanner + 1
   }
   return(wb)

@@ -18,7 +18,8 @@ test_that("columns names are correct, no labels, no spanner", {
   ordered_example <- gt_table_no_group |>
     create_ordered_data()
 
-  wb <- write_stub_head_and_column_labels(gt_table = gt_table_no_group,
+  wb <- write_stub_head_and_column_labels(
+    gt_table = gt_table_no_group,
     ordered_gt_data = ordered_example,
     wb = wb,
     # sheet_name = "gtcars_test_no_group",
@@ -35,7 +36,8 @@ test_that("columns names are correct, no labels, no spanner", {
   ordered_example <- gt_table_group_by |>
     create_ordered_data()
 
-  wb <- write_stub_head_and_column_labels(gt_table = gt_table_group_by,
+  wb <- write_stub_head_and_column_labels(
+    gt_table = gt_table_group_by,
     ordered_gt_data = ordered_example,
     wb = wb,
     # sheet_name = "gtcars_test_gt_table_group_by",
@@ -54,7 +56,8 @@ test_that("columns names are correct, no labels, no spanner", {
   ordered_example <- gt_table_rowname_col |>
     create_ordered_data()
 
-  wb <- write_stub_head_and_column_labels(gt_table = gt_table_rowname_col,
+  wb <- write_stub_head_and_column_labels(
+    gt_table = gt_table_rowname_col,
     ordered_gt_data = ordered_example,
     wb = wb,
     # sheet_name = "gtcars_test_rowname_col",
@@ -74,7 +77,8 @@ test_that("columns names are correct, no labels, no spanner", {
   ordered_example <- gt_table_both |>
     create_ordered_data()
 
-  wb <- write_stub_head_and_column_labels(gt_table = gt_table_both,
+  wb <- write_stub_head_and_column_labels(
+    gt_table = gt_table_both,
     ordered_gt_data = ordered_example,
     wb = wb,
     # sheet_name = "gtcars_test_both",
@@ -131,7 +135,8 @@ test_that("columns names are correct, no labels, no spanner", {
   wb <- wb |>
     openxlsx2::wb_add_worksheet(sheet = "gt_spanners_merge_labels", grid_lines = FALSE)
 
-  wb <- write_stub_head_and_column_labels(gt_table = gt_table_spanners_merge_labels,
+  wb <- write_stub_head_and_column_labels(
+    gt_table = gt_table_spanners_merge_labels,
     ordered_gt_data = ordered_example,
     wb = wb,
     # sheet_name = "gt_spanners_merge_labels",
@@ -151,7 +156,7 @@ test_that("columns names are correct, no labels, no spanner", {
   expected_file_location <- testthat::test_path("fixtures", "gtcars_test_col_names.xlsx")
   expected_output <- readxl::excel_sheets(expected_file_location) |>
     # purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_output_location, sheet = .x))
-  purrr::map(~ openxlsx2::wb_to_df(file = expected_file_location, sheet = .x))
+    purrr::map(~ openxlsx2::wb_to_df(file = expected_file_location, sheet = .x))
 
 
   expect_equal(actual_output[[1]], expected_output[[1]])

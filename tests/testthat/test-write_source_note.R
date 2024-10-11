@@ -6,13 +6,14 @@ test_that("write_source_note works", {
 
   tester_wrapper <- function(wb, gt_table, sheet) {
     wb <- wb |>
-      openxlsx2::wb_add_worksheet(sheet= sheet)
+      openxlsx2::wb_add_worksheet(sheet = sheet)
     # openxlsx::addWorksheet(wb, sheet)
 
     ordered_example <- gt_table |>
       create_ordered_data()
-    wb<-write_source_note(gt_table = gt_table,
-        ordered_gt_data = ordered_example,
+    wb <- write_source_note(
+      gt_table = gt_table,
+      ordered_gt_data = ordered_example,
       wb = wb,
       # sheet_name = sheet,
       row_to_start = 1
@@ -28,14 +29,14 @@ test_that("write_source_note works", {
       )
     )
 
-  wb<-tester_wrapper(wb,one_source_note, "one_source_note")
+  wb <- tester_wrapper(wb, one_source_note, "one_source_note")
 
   two_source_note <- one_source_note |>
     gt::tab_source_note(
       source_note = "source note 2"
     )
 
-  wb<-tester_wrapper(wb,two_source_note, "two_source_note")
+  wb <- tester_wrapper(wb, two_source_note, "two_source_note")
 
   temp_file_location <- paste0(temp_dir_to_test, "\\footers.xlsx")
   # openxlsx::saveWorkbook(wb, temp_file_location)

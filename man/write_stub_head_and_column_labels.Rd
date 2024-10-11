@@ -30,8 +30,10 @@ gt_table_example <- gtcars_8 |>
 ordered_example <- gt_table_example |>
   create_ordered_data()
 wb <- wb |>
-  write_stub_head_and_column_labels(row_to_start = 1,
-                                    gt_table = gt_table_example,
-                                    ordered_gt_data = ordered_example)
+  write_stub_head_and_column_labels(
+    row_to_start = 1,
+    gt_table = gt_table_example,
+    ordered_gt_data = ordered_example
+  )
 
 }

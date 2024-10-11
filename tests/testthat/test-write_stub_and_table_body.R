@@ -10,7 +10,8 @@ test_that("Test that stub and table body are written correclty", {
       openxlsx2::wb_add_worksheet(sheet = sheet)
     ordered_example <- gt_table |>
       create_ordered_data()
-    wb <- write_stub_and_table_body(gt_table = gt_table,
+    wb <- write_stub_and_table_body(
+      gt_table = gt_table,
       ordered_gt_data = ordered_example,
       wb = wb,
       # sheet_name = sheet,
@@ -25,7 +26,7 @@ test_that("Test that stub and table body are written correclty", {
     gt::gt()
 
 
-  stub_and_body_test <- tester_wrapper(wb,example_0, "stub_and_body")
+  stub_and_body_test <- tester_wrapper(wb, example_0, "stub_and_body")
   wb <- stub_and_body_test[["wb"]]
   actual_indexes_list[["stub_and_body"]] <- stub_and_body_test[["cell_data_row"]]
 
@@ -35,9 +36,9 @@ test_that("Test that stub and table body are written correclty", {
     gt::gt()
 
   # actual_indexes_list[["group_by"]] <- tester_wrapper(example_1, "group_by")
-  group_by_test <- tester_wrapper(wb,example_1, "group_by")
+  group_by_test <- tester_wrapper(wb, example_1, "group_by")
   wb <- group_by_test[["wb"]]
-  actual_indexes_list[["group_by"]]  <- group_by_test[["cell_data_row"]]
+  actual_indexes_list[["group_by"]] <- group_by_test[["cell_data_row"]]
 
   # with rowname_col
   order_countries <- c("Germany", "Italy", "United States", "Japan")
@@ -53,9 +54,9 @@ test_that("Test that stub and table body are written correclty", {
     gt::gt(rowname_col = "car")
 
   # actual_indexes_list[["group_by_and_rowname_col"]] <- tester_wrapper(tab, "group_by_and_rowname_col")
-  group_by_and_rowname_col_test <- tester_wrapper(wb,tab, "group_by_and_rowname_col")
+  group_by_and_rowname_col_test <- tester_wrapper(wb, tab, "group_by_and_rowname_col")
   wb <- group_by_and_rowname_col_test[["wb"]]
-  actual_indexes_list[["group_by_and_rowname_col"]]  <- group_by_and_rowname_col_test[["cell_data_row"]]
+  actual_indexes_list[["group_by_and_rowname_col"]] <- group_by_and_rowname_col_test[["cell_data_row"]]
 
   temp_file_location <- paste0(temp_dir_to_test, "\\stub_and_body_test.xlsx")
   # openxlsx::saveWorkbook(wb, temp_file_location)
@@ -70,7 +71,7 @@ test_that("Test that stub and table body are written correclty", {
 
   expected_output <- readxl::excel_sheets(expected_file_location) |>
     # purrr::map(~ openxlsx::read.xlsx(xlsxFile = expected_file_location, sheet = .x))
-  purrr::map(~ openxlsx2::wb_to_df(file = expected_file_location, sheet = .x))
+    purrr::map(~ openxlsx2::wb_to_df(file = expected_file_location, sheet = .x))
 
 
   expect_equal(actual_output[[1]], expected_output[[1]])

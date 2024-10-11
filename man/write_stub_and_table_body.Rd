@@ -30,6 +30,6 @@ example_0 <- gt::gtcars |>
   gt::gt()
 gtcars_example <- example_0 |>
   create_ordered_data()
-wb <-  wb |>
-  write_stub_and_table_body(gt_table = example_0,ordered_gt_data = gtcars_example,1)
+wb <- wb |>
+  write_stub_and_table_body(gt_table = example_0, ordered_gt_data = gtcars_example, 1)
 }

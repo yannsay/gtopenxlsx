@@ -86,7 +86,7 @@ tab <-
 
 ``` r
 library(openxlsx2)
-wb <- wb_workbook() |> 
+wb <- wb_workbook() |>
   wb_add_worksheet("gt_cars_example", gridLines = F)
 wb <- wb |>
   gt_to_xlsx(tab)
